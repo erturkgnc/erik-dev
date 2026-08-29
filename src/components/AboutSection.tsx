@@ -12,7 +12,7 @@ export default function AboutSection() {
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
               Who I Am
             </h2>
-            <p className="mt-5 text-sm leading-relaxed text-ink-dim sm:text-base">{about.body}</p>
+            <p className="mt-5 text-sm leading-relaxed text-ink/90 sm:text-base">{about.body}</p>
 
             <div className="mt-8">
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-faint">

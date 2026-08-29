@@ -35,3 +35,17 @@ export function resolveVideo(url: string): { kind: VideoKind; embedUrl: string }
 
   return { kind: "external", embedUrl: url };
 }
+
+/**
+ * If a URL is a YouTube link, returns YouTube's own thumbnail image for that
+ * video (hqdefault — always present, unlike maxresdefault which some videos
+ * don't have). Returns null for any other kind of URL, so callers can fall
+ * back to something else.
+ */
+export function resolveYouTubeThumbnail(url: string): string | null {
+  const youtubeMatch = url.match(
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{6,})/
+  );
+  if (!youtubeMatch) return null;
+  return `https://img.youtube.com/vi/${youtubeMatch[1]}/hqdefault.jpg`;
+}

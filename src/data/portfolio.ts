@@ -25,7 +25,12 @@ export interface Project {
   tags: string[];
   video?: string; // raw URL, kind is auto-detected
   playUrl?: string; // "Play Game" — public link
-  thumbnail?: string; // optional image path in /public — omit to use generated preview
+  // Preview image priority: 1) thumbnail below, if set — put a real image in
+  // /public/projects and point this at it, e.g. "/projects/roulette.webp".
+  // 2) if omitted and `video` is a YouTube link, the card automatically uses
+  // that video's YouTube thumbnail — no code change needed. 3) if neither is
+  // available, the card falls back to a generated placeholder.
+  thumbnail?: string;
 }
 
 export interface BuildCard {
@@ -39,11 +44,16 @@ export interface SkillGroup {
   items: string[];
 }
 
+export interface PricingNote {
+  text: string;
+}
+
 // ── Links ───────────────────────────────────────────────────────────────
 // Replace these with your real links before deploying.
 export const links = {
   discordUrl: "https://discord.com/users/991387775544856606",
   robloxProfileUrl: "https://www.roblox.com/users/1521096248/profile",
+  email: "gencerturk643@gmail.com",
   rouletteGameUrl: "https://www.roblox.com/games/99816904304707/The-Roulette",
   rouletteVideoUrl: "https://youtu.be/rMJOoTXyci8",
   combatVideoUrl: "https://youtu.be/gnBzd-Q1F38",
@@ -199,6 +209,18 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
+// ── Pricing ─────────────────────────────────────────────────────────────
+export const pricing = {
+  eyebrow: "Commissions",
+  heading: "Per-Task Pricing",
+  range: "R$2,000 – R$12,000+",
+  rangeLabel: "Typical range per task",
+  explanation:
+    "Final pricing depends on the task scope, complexity, deadline, and the existing codebase.",
+  note: "More complex or larger systems may be priced above this range.",
+  detail: "Every task is scoped and priced individually — no fixed packages.",
+};
+
 // ── Development Approach ────────────────────────────────────────────────
 export const approach = {
   heading: "Development Approach",
@@ -227,7 +249,7 @@ export const availability = {
 // ── Contact ─────────────────────────────────────────────────────────────
 export const contact = {
   heading: "Let's Build Something",
-  body: "Reach out on Discord or check out my Roblox profile — happy to talk through scope before we start.",
+  body: "Reach out on Discord, by email, or check out my Roblox profile — happy to talk through scope before we start.",
 };
 
 // ── Nav ─────────────────────────────────────────────────────────────────

@@ -1,4 +1,4 @@
-import { MessageCircle, Gamepad2 } from "lucide-react";
+import { MessageCircle, Gamepad2, Mail } from "lucide-react";
 import { contact, links } from "@/data/portfolio";
 import SectionReveal from "./SectionReveal";
 import SystemGraphBackground from "./SystemGraphBackground";
@@ -14,7 +14,7 @@ export default function ContactSection() {
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-ink-dim sm:text-base">{contact.body}</p>
 
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <a
               href={links.discordUrl}
               target="_blank"
@@ -23,6 +23,13 @@ export default function ContactSection() {
             >
               <MessageCircle className="h-4 w-4" />
               Discord
+            </a>
+            <a
+              href={`mailto:${links.email}`}
+              className="btn-secondary w-full max-w-full sm:w-auto"
+            >
+              <Mail className="h-4 w-4 shrink-0" />
+              <span className="truncate">{links.email}</span>
             </a>
             <a
               href={links.robloxProfileUrl}

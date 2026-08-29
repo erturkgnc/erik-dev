@@ -5,17 +5,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        canvas: "#05070A",
         base: {
-          DEFAULT: "#05070A",
           panel: "#0B0F16",
           elevated: "#10151F",
           border: "#1C232F",
           borderSoft: "#151B25",
         },
         ink: {
-          DEFAULT: "#E9EDF3",
-          dim: "#9AA4B5",
-          faint: "#5B6478",
+          DEFAULT: "#F2F4F7",
+          dim: "#B5BDCA",
+          faint: "#8993A5",
         },
         ember: {
           DEFAULT: "#FF6A3D",

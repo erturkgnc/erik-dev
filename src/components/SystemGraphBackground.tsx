@@ -1,6 +1,12 @@
+"use client";
+
 // A quiet, code-editor-adjacent ambient motif: a sparse node graph with
 // pulsing connection points, evoking a gameplay system / state diagram.
-// Pure CSS + SVG, no client JS required.
+// Moves at a barely-noticeable parallax rate as its section scrolls by —
+// disabled entirely for prefers-reduced-motion users.
+
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const NODES: { x: number; y: number; delay: string }[] = [
   { x: 80, y: 90, delay: "0s" },
@@ -25,11 +31,29 @@ const EDGES: [number, number][] = [
 ];
 
 export default function SystemGraphBackground() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Barely-noticeable drift — graph layer moves a little more than the grid,
+  // giving a subtle sense of depth without ever reading as "parallax".
+  const graphY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 46]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 20]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 30]);
+
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,black,transparent)]" />
-      <div className="absolute inset-0 bg-ember-radial" />
-      <svg
+    <div ref={containerRef} className="pointer-events-none absolute inset-0 overflow-hidden">
+      <motion.div
+        style={{ y: gridY }}
+        className="absolute inset-0 bg-grid-pattern bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,black,transparent)]"
+      />
+      <motion.div style={{ y: glowY }} className="absolute inset-0 bg-ember-radial" />
+      <motion.svg
+        style={{ y: graphY }}
         viewBox="0 0 960 320"
         className="absolute left-1/2 top-0 h-[420px] w-[1100px] -translate-x-1/2 opacity-[0.35]"
         fill="none"
@@ -63,7 +87,7 @@ export default function SystemGraphBackground() {
             style={{ animationDelay: n.delay, transformOrigin: `${n.x}px ${n.y}px` }}
           />
         ))}
-      </svg>
+      </motion.svg>
     </div>
   );
 }
