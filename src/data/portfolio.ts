@@ -33,6 +33,14 @@ export interface Project {
   thumbnail?: string;
 }
 
+export interface FeaturedTrailer {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  url: string;
+  thumbnail: string;
+}
+
 export interface BuildCard {
   title: string;
   description: string;
@@ -59,6 +67,17 @@ export const links = {
   combatVideoUrl: "https://youtu.be/gnBzd-Q1F38",
   eggHatchVideoUrl: "https://youtu.be/DMsBsC_BhZg",
   progressionVideoUrl: "https://youtu.be/6pV7530aAf4",
+};
+
+// ── Featured trailer ────────────────────────────────────────────────────
+// Add the finished trailer URL and thumbnail here. The thumbnail's intended
+// public path is /projects/roulette-trailer.webp.
+export const featuredTrailer: FeaturedTrailer = {
+  eyebrow: "Featured Trailer",
+  title: "The Roulette — Official Trailer",
+  subtitle: "A cinematic look at my fully playable Roblox game.",
+  url: "https://youtu.be/8Hym5V8BK6g",
+  thumbnail: "/projects/roulette-trailer.webp",
 };
 
 // ── Hero ────────────────────────────────────────────────────────────────

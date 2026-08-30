@@ -1,4 +1,5 @@
-import { projects } from "@/data/portfolio";
+import { featuredTrailer, projects } from "@/data/portfolio";
+import FeaturedTrailer from "./FeaturedTrailer";
 import ProjectCard from "./ProjectCard";
 import SectionReveal from "./SectionReveal";
 
@@ -18,8 +19,12 @@ export default function ProjectsSection() {
         </SectionReveal>
 
         <div className="flex flex-col gap-6">
+          <SectionReveal amount={0.12}>
+            <FeaturedTrailer trailer={featuredTrailer} />
+          </SectionReveal>
+
           {projects.map((project, i) => (
-            <SectionReveal key={project.id} delay={i * 0.05}>
+            <SectionReveal key={project.id} delay={(i + 1) * 0.05}>
               <ProjectCard project={project} reversed={i % 2 === 1} />
             </SectionReveal>
           ))}

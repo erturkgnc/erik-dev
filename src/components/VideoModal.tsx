@@ -1,16 +1,19 @@
 "use client";
 
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { resolveVideo } from "@/lib/utils";
 
 export default function VideoModal({
   url,
   title,
+  descriptor = "showcase",
   onClose,
 }: {
   url: string;
   title: string;
+  descriptor?: string;
   onClose: () => void;
 }) {
   const { kind, embedUrl } = resolveVideo(url);
@@ -27,12 +30,12 @@ export default function VideoModal({
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm sm:p-8"
       role="dialog"
       aria-modal="true"
-      aria-label={`${title} showcase video`}
+      aria-label={`${title} ${descriptor} video`}
       onClick={onClose}
     >
       <div
@@ -41,7 +44,7 @@ export default function VideoModal({
       >
         <div className="flex items-center justify-between border-b border-base-border px-4 py-3">
           <span className="truncate font-mono text-xs uppercase tracking-wide text-ink-dim">
-            {title} — showcase
+            {title} — {descriptor}
           </span>
           <button
             type="button"
@@ -57,7 +60,7 @@ export default function VideoModal({
           {kind === "youtube" || kind === "drive" ? (
             <iframe
               src={embedUrl}
-              title={`${title} showcase video`}
+              title={`${title} ${descriptor} video`}
               className="h-full w-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -83,6 +86,7 @@ export default function VideoModal({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
