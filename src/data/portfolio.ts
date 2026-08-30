@@ -232,7 +232,7 @@ export const skillGroups: SkillGroup[] = [
 export const pricing = {
   eyebrow: "Commissions",
   heading: "Per-Task Pricing",
-  range: "R$2,000 – R$12,000+",
+  range: "R$2,000 – R$25,000+",
   rangeLabel: "Typical range per task",
   explanation:
     "Final pricing depends on the task scope, complexity, deadline, and the existing codebase.",
